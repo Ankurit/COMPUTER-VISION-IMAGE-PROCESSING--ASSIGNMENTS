@@ -1,0 +1,55 @@
+import cv2 
+import matplotlib.pyplot as plt 
+import math
+import numpy as np 
+# Read an image 
+image = cv2.imread('baby2.jpg')
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb) 
+plt.show()
+
+color = ('b', 'g', 'r') 
+  
+for i, col in enumerate(color): 
+      
+    histr = cv2.calcHist([image],  
+                         [i], None, 
+                         [256],  
+                         [0, 256]) 
+      
+    plt.plot(histr, color = col) 
+      
+    # Limit X - axis to 256 
+    plt.xlim([0, 256]) 
+      
+plt.show()
+
+maxiI = 250
+miniI = 2
+
+maxoI = 150 
+minoI = 0
+
+stretched_image = image.copy()
+height, width, _ = image.shape 
+  
+for i in range(0, height - 1): 
+    for j in range(0, width - 1):  
+        
+        pixel = stretched_image[i, j] 
+     
+        
+        pixel[0] = (pixel[0] - miniI) * ((maxoI-minoI) / (maxiI-miniI)) + minoI  
+          
+        
+        pixel[1] = (pixel[1] - miniI) * ((maxoI-minoI) / (maxiI-miniI)) + minoI 
+          
+        # 3rd index contains blue pixel 
+        pixel[2] = (pixel[2] - miniI) * ((maxoI-minoI) / (maxiI-miniI)) + minoI 
+          
+        # Store new values in the pixel 
+        stretched_image[i, j] = pixel 
+  
+#stretched image
+plt.imshow(stretched_image)
+plt.show()

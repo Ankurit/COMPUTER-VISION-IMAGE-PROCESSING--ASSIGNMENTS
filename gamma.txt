@@ -1,0 +1,14 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+img = cv2.imread('city2.jpg')
+plt.imshow(img)
+plt.show()
+# gamma value 5
+for gamma in [5]:
+	
+	gamma_corrected = np.array(255*(img / 255) ** gamma, dtype = 'uint8')
+
+plt.imshow(gamma_corrected)
+plt.show()

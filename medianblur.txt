@@ -1,0 +1,12 @@
+mport cv2
+import matplotlib.pyplot as plt 
+import math
+import numpy as np
+
+img_third=cv2.imread("baby.jpg")
+image_rgb = cv2.cvtColor(img_third, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb)
+plt.show()
+image_median = cv2.medianBlur(image_rgb,9)
+plt.imshow(image_median)
+plt.show()

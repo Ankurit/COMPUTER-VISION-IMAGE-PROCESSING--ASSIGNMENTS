@@ -1,0 +1,21 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read an image
+image = cv2.imread('log.png')
+
+# Apply log transformation method
+c = 255 / np.log(1 + np.max(image))
+log_image = c * (np.log(image + 1))
+
+# Specify the data type so that
+# float value will be converted to int
+log_image = np.array(log_image, dtype = np.uint8)
+
+# Display both images
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb)
+plt.show()
+plt.imshow(log_image)
+plt.show()

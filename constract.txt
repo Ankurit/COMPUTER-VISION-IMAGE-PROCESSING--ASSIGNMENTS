@@ -1,0 +1,78 @@
+import cv2 
+import matplotlib.pyplot as plt 
+import math
+import numpy as np 
+# Read an image 
+image = cv2.imread('Fig0316(2)(2nd_from_top).tif')
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb) 
+plt.show()
+
+color = ('b', 'g', 'r') 
+  
+for i, col in enumerate(color): 
+      
+    histr = cv2.calcHist([image],  
+                         [i], None, 
+                         [256],  
+                         [0, 256]) 
+      
+    plt.plot(histr, color = col) 
+      
+    # Limit X - axis to 256 
+    plt.xlim([0, 256]) 
+      
+plt.show()
+
+maxiI = 64
+miniI = 0
+
+maxoI = 96 
+minoI = 0
+
+stretched_image = image.copy()
+height, width, _ = image.shape 
+  
+for i in range(0, height - 1): 
+    for j in range(0, width - 1):  
+        
+        pixel = stretched_image[i, j] 
+     
+        pixel[0] = (pixel[0] - minoI) * ((maxiI-miniI)/(maxoI-minoI) ) + miniI 
+        # Store new values in the pixel 
+        stretched_image[i, j] = pixel 
+
+maxiI = 192
+miniI = 65
+
+maxoI = 160 
+minoI = 64
+
+
+for i in range(0, height - 1): 
+    for j in range(0, width - 1):  
+        
+        pixel = stretched_image[i, j] 
+     
+        pixel[1] = (pixel[1] - minoI) * ((maxiI-miniI)/(maxoI-minoI) ) + miniI
+               
+        # Store new values in the pixel 
+        stretched_image[i, j] = pixel 
+  
+maxiI = 255
+miniI = 193
+
+maxoI = 255
+minoI = 161
+for i in range(0, height - 1): 
+    for j in range(0, width - 1):  
+        
+        pixel = stretched_image[i, j]         
+        pixel[2] = (pixel[2] - minoI) * ((maxiI-miniI)/(maxoI-minoI) ) + miniI
+        # Store new values in the pixel
+        stretched_image[i, j] = pixel 
+  
+#stretched image
+image_rgb1 = cv2.cvtColor(stretched_image, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb1) 
+plt.show()

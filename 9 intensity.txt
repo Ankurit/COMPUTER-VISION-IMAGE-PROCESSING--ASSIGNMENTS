@@ -1,0 +1,56 @@
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('kidney.tif')
+fig = plt.figure(figsize=(10, 7))
+
+# setting values to rows and column variables
+rows = 2
+columns = 2
+# Adds a subplot at the 1st position
+fig.add_subplot(rows, columns, 1)
+
+# showing image
+plt.imshow(img)
+plt.axis('off')
+plt.title("First")
+
+
+def intensitylevelslicing( r,r1,s1,r2,s2):
+    if(0<=r and r<r1):
+        return s1
+    elif(r1<=r and r<r2):
+        return s2
+    else:
+        return  s1
+
+
+r1=153
+s1=25
+r2=193
+s2=255
+
+h=img.shape[1];
+w=img.shape[0];
+c=img.shape[2];
+
+a = np.uint8(np.zeros((w,h,c)))
+
+for i in range(w):
+    for j in range(h):
+        for k in range(c):
+         a[i,j,k]=intensitylevelslicing(img[i,j,k],r1,s1,r2,s2)
+   
+print(a.shape)
+#cv2.imshow("intensity level sliced",a)
+
+
+fig.add_subplot(rows, columns, 2)
+
+# showing image
+plt.imshow(a)
+plt.axis('off')
+plt.title("Second")
+
+plt.show()

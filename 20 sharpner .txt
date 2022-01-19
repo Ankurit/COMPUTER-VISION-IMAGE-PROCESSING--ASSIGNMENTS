@@ -1,0 +1,15 @@
+import cv2
+import matplotlib.pyplot as plt 
+import math
+import numpy as np
+img_third=cv2.imread("ROSES.jpg")
+image_rgb = cv2.cvtColor(img_third, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb)
+plt.show()
+# Creating our sharpening filter
+filter = np.array([[0, -1, 0], [-1, 9, -1], [0, -1, 0]])
+# Applying cv2.filter2D function on our Cybertruck image
+sharpen_img_1=cv2.filter2D(img_third,-1,filter)
+image_rgb = cv2.cvtColor(sharpen_img_1, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb)
+plt.show()

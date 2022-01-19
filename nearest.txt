@@ -1,0 +1,15 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+img = cv2.imread("Fig0220(a)(chronometer 3692x2812  2pt25 inch 1250 dpi).tif")
+arr = cv2.resize(img,(256,256))
+cv2.imshow("original",arr)
+plt.show()
+repetitions = 2
+print("\n arr : \n", arr) 
+img = np.repeat(arr, repetitions, 1)
+print("\nRepeating arr : \n", img) 
+c2 = np.repeat(img, repetitions, 0)
+cv2.imshow("zoomed",c2)
+cv2.waitKey(0)
